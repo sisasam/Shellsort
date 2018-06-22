@@ -29,26 +29,51 @@ public class Shellsort_MeinName implements IShellsort
     public int insertionsortMitSchrittweite(String[] feld, int schrittweite) 
     {
     	int sv = 0;
+    	int svs = 0;
     	while (schrittweite > 0)
     	{
 	    	for (int i = schrittweite; i < feld.length; i++)
 			{
 				String neu = feld[i];
-				int k = i;
-				while (k >= schrittweite && checkAnz(feld[k - schrittweite]) >= checkAnz(neu))
+				int k = i;	//k wird auf die Schrittweite gestezt und dann bis zur Länge des Feldes hochgezählt.
+				/*
+				 * der erste Wert wird dann ab der Schrittweite genommen
+				 * und es wird verglichen, ob der hintere ( neu ) Wert kleiner ist als der vordere
+				 */
+				while (k >= schrittweite && ( checkAnz(feld[k - schrittweite]) > checkAnz(neu) || (feld[k - schrittweite].length() > neu.length() && checkAnz(feld[k - schrittweite]) == checkAnz(neu)) )) 
 				{
-//					if (checkAnz(feld[k - schrittweite]) = checkAnz(neu))
-//					{
-//						if (feld[k - schrittweite].length() )
-//						{
-//							
-//						}
-//					}
-					System.out.print(feld[k - schrittweite] +  " " + checkAnz(feld[k - schrittweite]) + " vgl. " + neu + " " + checkAnz(neu));
-					System.out.println();
+					/*
+					 * check auf Anzahl der a's, da bei gleicher Anzahl
+					 * noch ein Vergleich auf die Länge stattfindet
+					 */
+					if (checkAnz(feld[k - schrittweite]) != checkAnz(neu)) 
+					{
+						svs++;
+					}
+					else
+					{
+						svs = svs+2;
+					}
+						
+						feld[k] = feld[k-schrittweite];
+						k = k-schrittweite;
+					
+				}
+				/*
+				 * check auf den Durchlauf der While Schleife, da er sonnst nur ein Vergleich geführt hat.
+				 */
+				if (svs != 0) 
+				{
+					sv = svs+sv;
+					svs = 0;
+				}
+				else if (svs == 0 && checkAnz(feld[k - schrittweite]) != checkAnz(neu))
+				{
 					sv++;
-					feld[k] = feld[k-schrittweite];
-					k = k-schrittweite;
+				}
+				else if (svs == 0 && checkAnz(feld[k - schrittweite]) == checkAnz(neu))
+				{
+					sv = sv+2;
 				}
 				feld[k] = neu;
 			}
