@@ -30,12 +30,17 @@ public class Shellsort_MeinName implements IShellsort
     {
     	int sv = 0;
     	int svs = 0;
+    	boolean vergleiche = false;
     	while (schrittweite > 0)
     	{
 	    	for (int i = schrittweite; i < feld.length; i++)
 			{
 				String neu = feld[i];
 				int k = i;	//k wird auf die Schrittweite gestezt und dann bis zur Länge des Feldes hochgezählt.
+				if (k-schrittweite > schrittweite) 
+				{
+					vergleiche = true;
+				}
 				/*
 				 * der erste Wert wird dann ab der Schrittweite genommen
 				 * und es wird verglichen, ob der hintere ( neu ) Wert kleiner ist als der vordere
@@ -46,14 +51,14 @@ public class Shellsort_MeinName implements IShellsort
 					 * check auf Anzahl der a's, da bei gleicher Anzahl
 					 * noch ein Vergleich auf die Länge stattfindet
 					 */
-					if (checkAnz(feld[k - schrittweite]) != checkAnz(neu)) 
-					{
+//					if (checkAnz(feld[k - schrittweite]) != checkAnz(neu)) 
+//					{
 						svs++;
-					}
-					else
-					{
-						svs = svs+2;
-					}
+//					}
+//					else
+//					{
+//						svs = svs+2;
+//					}
 						
 						feld[k] = feld[k-schrittweite];
 						k = k-schrittweite;
@@ -62,19 +67,25 @@ public class Shellsort_MeinName implements IShellsort
 				/*
 				 * check auf den Durchlauf der While Schleife, da er sonnst nur ein Vergleich geführt hat.
 				 */
-				if (svs != 0) 
+				if (svs != 0 && vergleiche == false) 
 				{
 					sv = svs+sv;
 					svs = 0;
 				}
-				else if (svs == 0 && checkAnz(feld[k - schrittweite]) != checkAnz(neu))
+				else if (svs != 0 && vergleiche == true) 
+				{
+					sv = (svs+1)+sv;
+					svs = 0;
+					vergleiche = false;
+				}
+				else //if (svs == 0 && checkAnz(feld[k - schrittweite]) != checkAnz(neu))
 				{
 					sv++;
 				}
-				else if (svs == 0 && checkAnz(feld[k - schrittweite]) == checkAnz(neu))
-				{
-					sv = sv+2;
-				}
+//				else if (svs == 0 && checkAnz(feld[k - schrittweite]) == checkAnz(neu))
+//				{
+//					sv = sv+2;
+//				}
 				feld[k] = neu;
 			}
 	    	schrittweite = schrittweite/3;
