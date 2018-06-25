@@ -49,18 +49,7 @@ public class Shellsort_MeinName implements IShellsort
 							(feld[k - schrittweite].length() > neu.length() &&
 							checkAnz(feld[k - schrittweite]) == checkAnz(neu)) )) 
 				{
-					/*
-					 * check auf Anzahl der a's, da bei gleicher Anzahl
-					 * noch ein Vergleich auf die Länge stattfindet
-					 */
-//					if (checkAnz(feld[k - schrittweite]) != checkAnz(neu)) 
-//					{
 						svs++;
-//					}
-//					else
-//					{
-//						svs = svs+2;
-//					}
 						
 						feld[k] = feld[k-schrittweite];
 						k = k-schrittweite;
@@ -69,9 +58,14 @@ public class Shellsort_MeinName implements IShellsort
 				/*
 				 * check auf den Durchlauf der While Schleife, da er sonnst nur ein Vergleich geführt hat.
 				 */
-				if (svs != 0) 
+				if (svs != 0 && svs != 1) 
 				{
 					sv = svs+sv;
+					svs = 0;
+				}
+				else if (svs == 1) 
+				{
+					sv = svs+1+sv;
 					svs = 0;
 				}
 				else //if (svs == 0 && checkAnz(feld[k - schrittweite]) != checkAnz(neu))
