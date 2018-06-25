@@ -25,8 +25,8 @@ public class Shellsort_MeinName implements IShellsort
     		sv += insertionsortMitSchrittweite(feld, sw);
     		sw = sw/3;
     	}
-    	showStr(feld);
-    	System.out.println(sv);
+//    	showStr(feld);
+//    	System.out.println(sv);
     	return sv;
     }
 
@@ -56,31 +56,22 @@ public class Shellsort_MeinName implements IShellsort
 					
 				}
 				/*
-				 * check auf den Durchlauf der While Schleife, da er sonnst nur ein Vergleich geführt hat.
+				 * check auf den Durchlauf der While Schleife, 
+				 * da er sonnst nur ein Vergleich geführt hat.
 				 */
-				if (svs != 0 && svs != 1) 
+				if (svs != 0) 
 				{
 					sv = svs+sv;
 					svs = 0;
 				}
-				else if (svs == 1) 
-				{
-					sv = svs+1+sv;
-					svs = 0;
-				}
-				else //if (svs == 0 && checkAnz(feld[k - schrittweite]) != checkAnz(neu))
+				if (k >= schrittweite)
 				{
 					sv++;
 				}
-//				else if (svs == 0 && checkAnz(feld[k - schrittweite]) == checkAnz(neu))
-//				{
-//					sv = sv+2;
-//				}
 				feld[k] = neu;
-				System.out.println("Nach jedem Durchgang " + sv);
 			}
-    	showStr(feld);
-    	System.out.println(sv);
+//    	showStr(feld);
+//    	System.out.println(sv);
     	return sv;
     }
     
