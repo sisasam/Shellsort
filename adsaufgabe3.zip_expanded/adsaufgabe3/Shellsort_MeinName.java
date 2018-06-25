@@ -20,7 +20,13 @@ public class Shellsort_MeinName implements IShellsort
     	{
     		sw = (sw * 3) +1;
     	}
-    		sv = insertionsortMitSchrittweite(feld, sw);
+    	while (sw > 0)
+    	{
+    		sv += insertionsortMitSchrittweite(feld, sw);
+    		sw = sw/3;
+    	}
+    	showStr(feld);
+    	System.out.println(sv);
     	return sv;
     }
 
@@ -30,22 +36,18 @@ public class Shellsort_MeinName implements IShellsort
     {
     	int sv = 0;
     	int svs = 0;
-    	boolean vergleiche = false;
-    	while (schrittweite > 0)
-    	{
 	    	for (int i = schrittweite; i < feld.length; i++)
 			{
 				String neu = feld[i];
 				int k = i;	//k wird auf die Schrittweite gestezt und dann bis zur Länge des Feldes hochgezählt.
-				if (k-schrittweite > schrittweite) 
-				{
-					vergleiche = true;
-				}
 				/*
 				 * der erste Wert wird dann ab der Schrittweite genommen
 				 * und es wird verglichen, ob der hintere ( neu ) Wert kleiner ist als der vordere
 				 */
-				while (k >= schrittweite && ( checkAnz(feld[k - schrittweite]) > checkAnz(neu) || (feld[k - schrittweite].length() > neu.length() && checkAnz(feld[k - schrittweite]) == checkAnz(neu)) )) 
+				while (k >= schrittweite &&
+							( checkAnz(feld[k - schrittweite]) > checkAnz(neu) ||
+							(feld[k - schrittweite].length() > neu.length() &&
+							checkAnz(feld[k - schrittweite]) == checkAnz(neu)) )) 
 				{
 					/*
 					 * check auf Anzahl der a's, da bei gleicher Anzahl
@@ -67,16 +69,10 @@ public class Shellsort_MeinName implements IShellsort
 				/*
 				 * check auf den Durchlauf der While Schleife, da er sonnst nur ein Vergleich geführt hat.
 				 */
-				if (svs != 0 && vergleiche == false) 
+				if (svs != 0) 
 				{
 					sv = svs+sv;
 					svs = 0;
-				}
-				else if (svs != 0 && vergleiche == true) 
-				{
-					sv = (svs+1)+sv;
-					svs = 0;
-					vergleiche = false;
 				}
 				else //if (svs == 0 && checkAnz(feld[k - schrittweite]) != checkAnz(neu))
 				{
@@ -87,9 +83,8 @@ public class Shellsort_MeinName implements IShellsort
 //					sv = sv+2;
 //				}
 				feld[k] = neu;
+				System.out.println("Nach jedem Durchgang " + sv);
 			}
-	    	schrittweite = schrittweite/3;
-		}
     	showStr(feld);
     	System.out.println(sv);
     	return sv;
